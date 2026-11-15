@@ -4,7 +4,7 @@ from urllib.parse import urlsplit
 
 from openai import OpenAI
 
-from .models import Evidence, Review, Script, Source
+from .models import Evidence, Review, ListeningReview, Script, Source
 from .sources import attach_excerpts
 
 DOMAINS = ["fusionfightleague.com", "combatreg.com", "montana.edu", "gogriz.com",
@@ -83,8 +83,12 @@ class Provider:
     def draft(self, brief, evidence):
         return self.structured(Script, f"Write a single host episode, around {brief['minutes'] * 120} words, "
                                "maximum 650 words or 6000 characters of spoken text. Use 4 to 6 segments. "
-                               "Start with 'This is Big Sky Fight Desk.' Include an opening disclosure that the voice is AI generated. "
-                               "Mention the as of date. End by pointing listeners to sources in the show notes. "
+                               "Open with the specific fight news, not a show introduction or housekeeping. "
+                               "Work Big Sky Fight Desk into one short line after the hook. AI disclosure belongs on the page, not in the spoken script. "
+                               "Use contractions, varied sentence lengths and natural transitions. Give the listener a reason to care through concrete supported details. "
+                               "No invented excitement, ringside experience, crowd reaction or personal memories. "
+                               "Do not read the reporting date as boilerplate. Date the actual fights clearly. "
+                               "End with one clean takeaway and a brief signoff. Mention show notes at most once. "
                                "Each segment must cite zero based fact_ids from the evidence below. Every factual sentence must be supported. "
                                "Do not pad a short evidence set into a long episode. Say what is unknown briefly without repeating it. "
                                "Use absolute dates spoken naturally, like November fourteenth, 2026, rather than today or an ISO date. "
@@ -115,8 +119,9 @@ class Provider:
                                "Check every factual claim against the directly retrieved source excerpts AND the cited facts. "
                                "The research narrative is fallible, not a source. Flag facts attached to the wrong URL. Check dates, results, "
                                "sport, Montana connection, tense and uncertainty. Flag unsupported generalizations and claims of watching. "
-                               "Flag insufficient evidence and any discrepancy. A source URL alone is not proof. Require the opening AI voice "
-                               "disclosure and an as of date IN THE SPOKEN OPENING ONLY. Do not require these in the title or description. "
+                               "Flag insufficient evidence and any discrepancy. A source URL alone is not proof. "
+                               "AI voice disclosure and reporting dates appear on the public page and are not required in spoken audio. "
+                               "Require clear event dates when needed to avoid confusing past and upcoming fights. "
                                "Attribution such as 'Sherdog lists' is acceptable for a database result when its excerpt supports it. "
                                "Do not demand nonexistent corroboration if the script explicitly attributes the claim and states the limit. "
                                "Fact IDs are explicitly supplied, zero based. Check only actual mismatches, not imagined index errors. "
@@ -130,10 +135,42 @@ class Provider:
     def audio(self, script, destination):
         speech = Script.model_validate(script).spoken()
         with self.client.audio.speech.with_streaming_response.create(
-                model="gpt-4o-mini-tts", voice="onyx", input=speech, response_format="mp3",
-                instructions="A calm, conversational American sports radio host. Warm and grounded. Read clearly at a steady pace. "
-                             "No shouting. MMA is M M A. Read dates naturally. Montana place names carefully.") as response:
+                model="gpt-4o-mini-tts", voice="cedar", input=speech, response_format="mp3",
+                instructions="Talk to one person who follows Montana fights. Conversational, engaged and relaxed, with natural contractions. "
+                             "Vary sentence rhythm. Let important results land with a short pause, then move on. "
+                             "No announcer voice, sales pitch, dramatic trailer delivery or exaggerated gravel. "
+                             "Keep energy through the closing line. Do not add words, introductions or sound effects. "
+                             "MMA is M M A. Missoula is mih ZOO luh, Polson is POLE sun, Helena is HELL uh nuh. "
+                             "Read dates and round times naturally. Do not rush names.") as response:
             response.stream_to_file(destination)
+
+    def listen(self, script, audio_path):
+        # The reviewer receives the actual MP3, not just its transcript.
+        result = self.client.chat.completions.create(
+            model="gpt-audio-1.5", modalities=["text"], max_tokens=1600,
+            messages=[{"role": "system", "content":
+                "You are a critical podcast audio editor. Listen to the entire recording. "
+                "Evaluate intelligibility, natural pacing, varied delivery, awkward pauses, repeated words, "
+                "pronunciation and whether the opening and ending feel complete. Compare against the supplied script. "
+                "Do not praise automatically. Do not invent an audible defect. Give timestamps for concrete issues. "
+                "Return only JSON with passed (boolean), issues (string array), notes (string), "
+                "naturalness (integer 1 to 5) and clarity (integer 1 to 5). "
+                "Pass only if both scores are at least 4 and there are no material issues. "
+                "Do not require a spoken AI disclosure. This is an automated audio review, not human listening."},
+                {"role": "user", "content": [
+                    {"type": "text", "text": "Expected script: " + Script.model_validate(script).spoken()},
+                    {"type": "input_audio", "input_audio": {
+                        "data": base64.b64encode(audio_path.read_bytes()).decode(), "format": "mp3"}}]}])
+        choice = result.choices[0]
+        if choice.finish_reason != "stop":
+            raise ValueError("The audio review did not finish. Your recording is saved.")
+        content = (choice.message.content or "").strip()
+        if content.startswith("```"):
+            content = content.split("\n", 1)[1].rsplit("```", 1)[0]
+        review = ListeningReview.model_validate_json(content).model_dump()
+        review["passed"] = bool(review["passed"] and not review["issues"] and
+                                min(review["naturalness"], review["clarity"]) >= 4)
+        return review
 
     def cover(self, script, destination):
         result = self.client.images.generate(model="gpt-image-2", size="1024x1024", quality="low", n=1,

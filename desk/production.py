@@ -6,7 +6,7 @@ from pathlib import Path
 from mutagen.mp3 import MP3
 from PIL import Image
 
-from .models import Evidence, Script
+from .models import Evidence, ListeningReview, Script
 from .storage import now
 
 
@@ -91,7 +91,7 @@ class Producer:
                 script = call("draft", lambda: provider.revise(episode))
                 episode["script"] = validate_script(script, episode["evidence"])
                 episode["approved"] = False
-                for key in ("audio_hash", "cover_hash", "duration_seconds"):
+                for key in ("audio_hash", "cover_hash", "duration_seconds", "listening_review", "listening_audio_hash", "listening_script_hash"):
                     episode.pop(key, None)
                 self.save_script(episode)
                 self.check(episode, provider, call)
@@ -116,6 +116,16 @@ class Producer:
                     temp.replace(folder / filename)
                     episode[operation + "_hash"] = fingerprint(episode["script"])
                     self.store.save(episode)
+            elif action == "listen":
+                self.require_review(episode)
+                if not self.media_ready(episode):
+                    raise ValueError("Generate the current audio and cover first.")
+                path = self.store.folder(episode_id) / "episode.mp3"
+                digest = hashlib.sha256(path.read_bytes()).hexdigest()
+                result = call("listen", lambda: provider.listen(episode["script"], path))
+                result = ListeningReview.model_validate(result).model_dump()
+                result["passed"] = bool(result["passed"] and not result["issues"] and min(result["clarity"], result["naturalness"]) >= 4)
+                episode.update(listening_review=result, listening_audio_hash=digest, listening_script_hash=fingerprint(episode["script"]))
             else:
                 raise ValueError("Unknown production action.")
             episode["status"] = "ready" if self.media_ready(episode) else "reviewed" if episode.get("review", {}).get("passed") else "needs review"
@@ -162,7 +172,7 @@ class Producer:
         with self.lock:
             episode = self.store.get(episode_id)
             episode["script"] = validate_script(script, episode["evidence"])
-            for key in ("review", "review_hash", "audio_hash", "cover_hash", "duration_seconds"):
+            for key in ("review", "review_hash", "audio_hash", "cover_hash", "duration_seconds", "listening_review", "listening_audio_hash", "listening_script_hash"):
                 episode.pop(key, None)
             episode.update(approved=False, status="needs review", error=None)
             self.save_script(episode)
@@ -172,6 +182,14 @@ class Producer:
     def require_review(episode):
         if not episode.get("review", {}).get("passed") or episode.get("review_hash") != fingerprint(episode.get("script")):
             raise ValueError("The current script needs a passing evidence check first.")
+
+    def require_listening_review(self, episode):
+        path = self.store.folder(episode["id"]) / "episode.mp3"
+        if (not episode.get("listening_review", {}).get("passed") or
+                episode.get("listening_script_hash") != fingerprint(episode.get("script")) or
+                not path.is_file() or
+                episode.get("listening_audio_hash") != hashlib.sha256(path.read_bytes()).hexdigest()):
+            raise ValueError("The current recording needs a passing audio review before export.")
 
     @staticmethod
     def media_ready(episode):

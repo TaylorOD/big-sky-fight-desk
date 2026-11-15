@@ -1,3 +1,4 @@
+import hashlib
 import copy
 import json
 from concurrent.futures import ThreadPoolExecutor
@@ -116,6 +117,9 @@ def test_export_requires_specific_approval_and_excludes_private_data(setup, tmp_
     store.save(episode)
     for name in ("episode.mp3", "cover.png"):
         (store.folder(episode["id"]) / name).write_bytes(b"test fixture")
+    episode.update(listening_review={"passed": True}, listening_script_hash=digest,
+                   listening_audio_hash=hashlib.sha256(b"test fixture").hexdigest())
+    store.save(episode)
     result = export_episode(store, episode["id"], tmp_path / "public")
     assert "research" not in result and "log" not in result and "brief" not in result
     assert len(result["sources"]) == 2
@@ -195,3 +199,39 @@ def test_review_with_issues_cannot_pass(setup):
     producer.provider_factory = Inconsistent
     result = producer.run(episode["id"], "draft")
     assert not result["review"]["passed"]
+
+
+def test_audio_check_is_bound_to_recording_and_script(setup):
+    store, episode, budget, producer = setup
+    producer.run(episode["id"], "draft")
+    episode = store.get(episode["id"])
+    digest = fingerprint(episode["script"])
+    path = store.folder(episode["id"]) / "episode.mp3"
+    path.write_bytes(b"recording")
+    episode.update(audio_hash=digest, cover_hash=digest)
+    store.save(episode)
+    class Listener(FakeProvider):
+        def listen(self, script, audio_path):
+            assert audio_path.read_bytes() == b"recording"
+            return {"passed": True, "issues": [], "notes": "Clear", "clarity": 5, "naturalness": 4}
+    producer.provider_factory = Listener
+    checked = producer.run(episode["id"], "listen")
+    producer.require_listening_review(checked)
+    path.write_bytes(b"replacement")
+    with pytest.raises(ValueError, match="audio review"):
+        producer.require_listening_review(checked)
+
+
+def test_weak_audio_score_cannot_pass(setup):
+    store, episode, budget, producer = setup
+    producer.run(episode["id"], "draft")
+    episode = store.get(episode["id"])
+    digest = fingerprint(episode["script"])
+    (store.folder(episode["id"]) / "episode.mp3").write_bytes(b"recording")
+    episode.update(audio_hash=digest, cover_hash=digest)
+    store.save(episode)
+    class Listener(FakeProvider):
+        def listen(self, script, audio_path):
+            return {"passed": True, "issues": [], "notes": "Flat", "clarity": 5, "naturalness": 2}
+    producer.provider_factory = Listener
+    assert not producer.run(episode["id"], "listen")["listening_review"]["passed"]

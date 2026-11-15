@@ -47,7 +47,7 @@ python -m desk studio
 1. Enter a topic, research date and target length. Specific events work better than broad requests.
 2. Choose Research & draft. The studio saves research, facts and the script as it goes.
 3. Read the evidence check. Use Revise from feedback or edit the script yourself if it needs work. Saving edits clears approval and invalidates old media.
-4. Generate audio & cover after a passing check. Listen to the MP3 and inspect the PNG.
+4. Generate audio & cover after a passing check. Choose Review the audio for an automated check of the actual MP3. Then listen yourself and inspect the PNG.
 5. Read the linked sources, approve the episode and export it. The public preview updates on your computer.
 6. Publish the exported files through a separate branch and pull request. The studio does not push to GitHub.
 
@@ -69,11 +69,14 @@ This is a bounded agent workflow. Code controls the order of research, evidence 
 | Source reading | Bounded HTML fetches | Read the pages behind the citations |
 | Facts and script | GPT 5 mini | Turn the excerpts into a sourced radio script |
 | Evidence check | GPT 4.1 | Check the proposed script against its actual sources |
-| Voice | GPT 4o mini TTS, Onyx | Make the MP3 with a disclosed AI voice |
+| Voice | GPT 4o mini TTS, Cedar | Make the MP3 with a disclosed AI voice |
+| Audio check | GPT Audio 1.5 | Review the recording for clarity, pacing and natural delivery |
 | Cover | GPT Image 2 | Make original illustrated artwork |
 | Publishing | Static files and GitHub Pages | Serve approved episodes without a paid backend |
 
 These are existing models. We did not train or fine tune them. The project supplies prompts, live source material and checks around their outputs. See [the code guide](docs/code-guide.md) for details.
+
+The spoken show opens on the news. AI voice disclosure stays on the listening page. Audio review is automated and subjective, so it does not replace listening yourself. A passing check is tied to the exact script and MP3.
 
 ## Reporting rules
 
@@ -85,7 +88,7 @@ The model review can still miss mistakes. Human review is part of publication. C
 
 ## Spending limits
 
-The default app allowance is $2 per Denver calendar day and $10 per month. Reservations are saved in SQLite before each paid request. A normal first attempt reserves $0.44 for research through review and $0.45 for media. A revision plus another check reserves $0.16. A separate check reserves $0.08.
+The default app allowance is $2 per Denver calendar day and $10 per month. Reservations are saved in SQLite before each paid request. A normal first attempt reserves $0.44 for research through review and $0.45 for media. A revision plus another check reserves $0.16. A separate script check reserves $0.08. An audio review reserves $1.10. A complete first attempt including audio review reserves $1.99.
 
 These are conservative activity allowances, not an exact OpenAI bill or a guaranteed dollar cap. Provider prices can change. Check your OpenAI usage dashboard and account limits too. Failed or interrupted requests keep their reservations because they may have reached the provider. Automatic SDK retries are disabled. Completed steps are reused when resuming.
 
