@@ -27,3 +27,12 @@ Screenshots are in `docs/screenshots/`. The public page contains no generation c
 The local ledger reserved $1.93 during development, including failed checks and a separate audio validation request. That is an activity allowance total, not a measured provider bill. Production defaults remain $2 per day and $10 per month.
 
 The public feed is ready for direct subscription. No submission to podcast directories or the course platform was performed.
+
+
+## Voice update
+
+The writing prompts now start with the fight news and use conversational transitions. The default voice is Cedar. Spoken AI introductions are no longer requested. The page retains the disclosure.
+
+Added a recording review using GPT Audio 1.5. It receives the actual MP3 and checks clarity, naturalness, pacing and script fidelity. Export requires a passing review for the exact script and audio bytes. 27 tests pass, including rejection of a weak audio score and a changed recording. Inspected the new studio controls in Chrome.
+
+No paid calls were made for this update. The new voice and audio reviewer have not been validated against the live API. The existing published recording is unchanged. Generation waits for available allowance under the existing $2 daily and $10 monthly limits.

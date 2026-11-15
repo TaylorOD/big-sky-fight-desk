@@ -50,6 +50,11 @@ class Review(BaseModel):
     notes: str
 
 
+class ListeningReview(Review):
+    naturalness: int = Field(ge=1, le=5)
+    clarity: int = Field(ge=1, le=5)
+
+
 class Brief(BaseModel):
     topic: str = Field(min_length=10, max_length=1200)
     as_of: date

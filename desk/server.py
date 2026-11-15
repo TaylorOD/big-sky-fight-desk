@@ -76,7 +76,7 @@ def create_app(data_dir=None, provider_factory=Provider):
         if any(not future.done() for future in jobs.values()):
             raise ValueError("An operation is already running. Let it finish first.")
         store.get(episode_id)
-        if action in ("draft", "review", "revise", "media"):
+        if action in ("draft", "review", "revise", "media", "listen"):
             def work():
                 try:
                     producer.run(episode_id, action)

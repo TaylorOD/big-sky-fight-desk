@@ -23,7 +23,7 @@ def main():
     new.add_argument("topic")
     new.add_argument("--as-of", required=True)
     new.add_argument("--minutes", type=int, default=4)
-    for name in ("draft", "review", "revise", "media", "approve", "export"):
+    for name in ("draft", "review", "revise", "media", "listen", "approve", "export"):
         commands.add_parser(name).add_argument("episode")
     args = parser.parse_args()
     if args.command == "studio":

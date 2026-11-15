@@ -19,6 +19,7 @@ def export_episode(store, episode_id, public_dir):
         raise ValueError("Review the script and sources, then approve this version before exporting.")
     if not Producer.media_ready(episode):
         raise ValueError("Generate the current audio and cover before exporting.")
+    Producer(store, None, None).require_listening_review(episode)
     origin = store.folder(episode_id)
     for name in ("episode.mp3", "cover.png", "transcript.txt"):
         if not (origin / name).is_file():

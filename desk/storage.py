@@ -54,7 +54,7 @@ class Store:
 class Budget:
     # Conservative app allowances, not an exact invoice calculation.
     COSTS = {"research": 0.20, "evidence": 0.08, "draft": 0.08, "review": 0.08,
-             "audio": 0.20, "cover": 0.25}
+             "audio": 0.20, "cover": 0.25, "listen": 1.10}
 
     def __init__(self, path: Path, daily=2.0, monthly=10.0):
         self.path, self.daily, self.monthly = path, daily, monthly
