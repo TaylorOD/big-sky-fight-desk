@@ -1,0 +1,70 @@
+{
+  "id": "5648929711e5",
+  "published_at": "2026-11-14T18:53:35-07:00",
+  "as_of": "2026-11-14",
+  "researched_at": "2026-11-14T18:45:48-07:00",
+  "title": "Missoula to Great Falls: a Fusion field report",
+  "description": "A reported heavyweight result in Missoula, a Polson gym connection and a December date to watch in Great Falls. Reporting as of November 14, 2026.",
+  "segments": [
+    {
+      "heading": "From the desk",
+      "text": "This is Big Sky Fight Desk. Real Montana MMA, with sources you can check. I am your AI generated host. This is independent coverage, and this dispatch is current as of November 14, 2026. We are starting in Missoula, then looking ahead to a date listed for Great Falls.",
+      "fact_ids": []
+    },
+    {
+      "heading": "The Missoula headline",
+      "text": "Fusion Fight League brought Peterson versus Trejo to the Adams Center in Missoula on November 6. The local event announcement billed it as a professional heavyweight title fight. Sherdog now lists Braden Peterson as the winner over Daniel Trejo, by guillotine choke, at four minutes and thirty two seconds of round two. That result is attributed to Sherdog. We have not independently checked it against an official bout sheet, and we are not giving a play by play of footage we have not reviewed.",
+      "fact_ids": [
+        0,
+        1,
+        8
+      ]
+    },
+    {
+      "heading": "The Montana connection",
+      "text": "There is a local gym connection here. The Missoula Underground announcement identifies Peterson with Big Medicine MMA in Polson. So the headline pairing was more than a visiting card at a Montana venue. It included a fighter introduced through a Polson gym. That is the kind of connection this show is here to follow: the people and teams behind the names on a local poster. The announcement and the results listing are both linked in the show notes so you can read them for yourself.",
+      "fact_ids": [
+        8,
+        0
+      ]
+    },
+    {
+      "heading": "A Great Falls date to watch",
+      "text": "Looking ahead, Sherdog lists Fusion Fight League: Season's Beatings for December 12, 2026, at Pacific Steel and Recycling Arena in Great Falls. Treat that as a listed date to follow, not a promise that every detail is settled. We are not announcing a main event or a complete lineup for that card in this episode. Before making plans, check the promoter and the venue for the current announcement, ticket details and any changes. The source linked with this episode is the Fusion promotion calendar on Sherdog.",
+      "fact_ids": [
+        6
+      ]
+    },
+    {
+      "heading": "Keep the sources close",
+      "text": "That is our first dispatch: a reported heavyweight result from Missoula, Peterson's Polson gym connection and a Great Falls date worth watching. You can find the original pages, the full transcript and the research date alongside the audio. If a result or date changes, those sources are the place to check. This is Big Sky Fight Desk. Thanks for listening.",
+      "fact_ids": [
+        1,
+        8,
+        6
+      ]
+    }
+  ],
+  "duration_seconds": 133,
+  "sources": [
+    {
+      "title": "Fusion Fight League - Peterson vs. Trejo",
+      "url": "https://www.sherdog.com/events/Fusion-Fight-League-Peterson-vs-Trejo-114816"
+    },
+    {
+      "title": "Fusion Fight League: Peterson vs Trejo Pro Heavy Weight Title Fight at UM Adams Center",
+      "url": "https://missoulaunderground.com/mugevent/fusion-fight-league-peterson-vs-trejo-pro-heavy-weight-title-fight-at-um-adams-center/"
+    },
+    {
+      "title": "Fusion Fight League Fights, Fight Cards, Videos, Pictures, Events and more",
+      "url": "https://www.sherdog.com/organizations/Fusion-Fight-League-3872?utm_source=openai"
+    }
+  ],
+  "uncertainties": [
+    "The Missoula result is attributed to Sherdog. We did not independently confirm it with an official bout sheet.",
+    "The December 12 date is a Sherdog listing. Check the promoter and venue before making plans."
+  ],
+  "audio": "episodes/5648929711e5/episode.mp3",
+  "cover": "episodes/5648929711e5/cover.png",
+  "transcript": "episodes/5648929711e5/transcript.txt"
+}
