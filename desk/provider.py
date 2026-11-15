@@ -115,8 +115,9 @@ class Provider:
         return self.structured(Script, "Revise this radio script to fix every issue in the review. "
                                "Use only the supplied source excerpts and evidence facts. Preserve zero based fact_ids and correct any mismatches. "
                                "Write a natural short Montana MMA podcast, not a research audit. No filler about phone numbers, past tickets, "
-                               "or internal research processes. Use short plain sentences. Include the AI voice disclosure and a naturally "
-                               "spoken as of date in the opening. End with sources in the show notes. 250 to 650 words, at most 6000 characters. "
+                               "or internal research processes. Use contractions and varied sentence lengths. Open with the news, "
+                               "then a brief show identification. Keep AI voice disclosure on the page, not in the spoken script. "
+                               "Use clear event dates, natural transitions and a clean ending. 150 to 650 words, at most 6000 characters. "
                                "A database listing is not promoter confirmation. Keep the title short.\n" + json.dumps({
                                    "brief": episode["brief"], "sources": episode["research"]["sources"],
                                    "evidence": episode["evidence"], "script": episode["script"], "review": episode["review"]}))

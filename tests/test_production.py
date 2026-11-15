@@ -244,3 +244,13 @@ def test_database_only_evidence_cannot_start_an_episode():
         fact["source_urls"] = [url]
     with pytest.raises(ValueError, match="beyond fight databases"):
         validate_evidence(evidence, {"sources": [{"url": url, "excerpt": "Two supported facts"}]})
+
+
+def test_revision_keeps_disclosure_off_the_spoken_script():
+    provider = object.__new__(Provider)
+    prompts = []
+    provider.structured = lambda schema, prompt: prompts.append(prompt) or SCRIPT
+    provider.revise({"brief": {}, "research": {"sources": SOURCES}, "evidence": EVIDENCE,
+                     "script": SCRIPT, "review": {"issues": []}})
+    assert "Keep AI voice disclosure on the page, not in the spoken script" in prompts[0]
+    assert "Include the AI voice disclosure" not in prompts[0]
