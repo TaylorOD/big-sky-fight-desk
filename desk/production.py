@@ -2,6 +2,7 @@ import hashlib
 import json
 import threading
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from mutagen.mp3 import MP3
 from PIL import Image
@@ -22,6 +23,11 @@ def validate_evidence(evidence, research):
     for fact in evidence.facts:
         if not fact.source_urls or any(url not in known for url in fact.source_urls):
             raise ValueError("A fact refers to a source that research did not retrieve.")
+    used = {url for fact in evidence.facts for url in fact.source_urls}
+    databases = ("sherdog.com", "tapology.com")
+    if all(any((urlsplit(url).hostname or "") == host or (urlsplit(url).hostname or "").endswith("." + host)
+               for host in databases) for url in used):
+        raise ValueError("Find an original announcement or local reporting source beyond fight databases.")
     return evidence.model_dump()
 
 

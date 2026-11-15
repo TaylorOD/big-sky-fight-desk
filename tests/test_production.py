@@ -235,3 +235,12 @@ def test_weak_audio_score_cannot_pass(setup):
             return {"passed": True, "issues": [], "notes": "Flat", "clarity": 5, "naturalness": 2}
     producer.provider_factory = Listener
     assert not producer.run(episode["id"], "listen")["listening_review"]["passed"]
+
+
+def test_database_only_evidence_cannot_start_an_episode():
+    url = "https://www.sherdog.com/events/example"
+    evidence = copy.deepcopy(EVIDENCE)
+    for fact in evidence["facts"]:
+        fact["source_urls"] = [url]
+    with pytest.raises(ValueError, match="beyond fight databases"):
+        validate_evidence(evidence, {"sources": [{"url": url, "excerpt": "Two supported facts"}]})
