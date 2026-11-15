@@ -4,7 +4,7 @@ Real Montana MMA. A short podcast with the sources to back it up.
 
 [Listen to the show](https://www.taylordorsett.com/big-sky-fight-desk/) · [RSS feed](https://www.taylordorsett.com/big-sky-fight-desk/feed.xml)
 
-![Big Sky Fight Desk listening page](docs/screenshots/fight-desk-desktop.jpg)
+![Big Sky Fight Desk listening page](docs/screenshots/dark-desktop.jpg)
 
 The studio runs on your computer. Give it a topic and it researches real events, drafts a script, checks the evidence and makes an MP3 and a PNG cover. Read the script and sources, listen to the result, then export an episode for the public page.
 
