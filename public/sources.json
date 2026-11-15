@@ -1,0 +1,213 @@
+{
+  "checked_at": "2026-11-14",
+  "sources": [
+    {
+      "id": "fusion",
+      "name": "Fusion Fight League",
+      "category": "Promoters",
+      "area": "Statewide",
+      "url": "https://linktr.ee/fusionfightleague",
+      "use": "Official announcement and broadcast links. Follow the dated event page, not the link hub alone.",
+      "access": "manual",
+      "domains": [
+        "fusionfightleague.com"
+      ]
+    },
+    {
+      "id": "mountain-force",
+      "name": "Mountain Force",
+      "category": "Promoters",
+      "area": "Regional",
+      "url": "https://www.mountainforcemma.com/live",
+      "use": "Check each event location. Regional cards are relevant only with a Montana venue or a sourced Montana fighter.",
+      "access": "readable",
+      "domains": [
+        "mountainforcemma.com"
+      ]
+    },
+    {
+      "id": "expo",
+      "name": "Montana ExpoPark",
+      "category": "Venues",
+      "area": "Great Falls",
+      "url": "https://tickets.goexpopark.com/eventperformances.asp?evt=320",
+      "use": "Venue announcements and event details. Read the sport carefully because a card can include bare knuckle.",
+      "access": "readable",
+      "domains": [
+        "goexpopark.com"
+      ]
+    },
+    {
+      "id": "metra",
+      "name": "MetraPark",
+      "category": "Venues",
+      "area": "Billings",
+      "url": "https://www.metrapark.com/location/first-interstate-arena?ev=630",
+      "use": "Official venue schedule. Use individual event pages to confirm dates and ticket links.",
+      "access": "readable",
+      "domains": [
+        "metrapark.com",
+        "axs.com"
+      ]
+    },
+    {
+      "id": "brick",
+      "name": "Brick Breeden Fieldhouse",
+      "category": "Venues",
+      "area": "Bozeman",
+      "url": "https://www.montana.edu/brickbreeden/",
+      "use": "Official venue announcements and ticketing. Event listings establish a booking, not a result.",
+      "access": "readable",
+      "domains": [
+        "montana.edu"
+      ]
+    },
+    {
+      "id": "griz",
+      "name": "GrizTix",
+      "category": "Venues",
+      "area": "Missoula",
+      "url": "https://griztix.com/",
+      "use": "Official University of Montana ticketing for Adams Center cards.",
+      "access": "manual",
+      "domains": [
+        "griztix.com",
+        "gogriz.com",
+        "umt.edu"
+      ]
+    },
+    {
+      "id": "sports",
+      "name": "Montana Sports",
+      "category": "Local reporting",
+      "area": "Statewide",
+      "url": "https://www.montanasports.com/more-sports",
+      "use": "Original fighter interviews, gym stories, amateur debuts and promotion coverage. Check the byline and article date.",
+      "access": "readable",
+      "domains": [
+        "montanasports.com",
+        "krtv.com",
+        "ktvq.com",
+        "kpax.com"
+      ]
+    },
+    {
+      "id": "kgrz",
+      "name": "KGRZ Missoula",
+      "category": "Local reporting",
+      "area": "Missoula",
+      "url": "https://kgrzmissoula.com/fusion-fight-league-missoula-26/",
+      "use": "Local fight previews. The August 2026 Missoula preview is a useful archive lead.",
+      "access": "readable",
+      "domains": [
+        "kgrzmissoula.com"
+      ]
+    },
+    {
+      "id": "underground",
+      "name": "Missoula Underground",
+      "category": "Local reporting",
+      "area": "Missoula",
+      "url": "https://missoulaunderground.com/mugevent/fusion-fight-league-peterson-vs-trejo-pro-heavy-weight-title-fight-at-um-adams-center/",
+      "use": "Event announcements and local gym connections. Promotional copy is not independent results reporting.",
+      "access": "readable",
+      "domains": [
+        "missoulaunderground.com"
+      ]
+    },
+    {
+      "id": "bozone",
+      "name": "The BoZone",
+      "category": "Local reporting",
+      "area": "Bozeman",
+      "url": "https://bozone.com/venue/brick-breeden-fieldhouse/?tribe_event_display=past&tribe_venue=brick-breeden-fieldhouse",
+      "use": "Local event leads. Confirm venue dates and avoid reusing old listings as current news.",
+      "access": "readable",
+      "domains": [
+        "bozone.com"
+      ]
+    },
+    {
+      "id": "sbg",
+      "name": "SBG Montana",
+      "category": "Gyms",
+      "area": "Western Montana",
+      "url": "https://sbgmontana.com/gym-programs/",
+      "use": "Gym and team connections across several Montana locations. A class page alone is not a news story.",
+      "access": "readable",
+      "domains": [
+        "sbgmontana.com",
+        "sbgmissoula.com",
+        "sbgkalispell.com",
+        "sbgbozeman.com",
+        "sbgwhitefish.com"
+      ]
+    },
+    {
+      "id": "mtmma",
+      "name": "Montana MMA",
+      "category": "Gyms",
+      "area": "Bozeman",
+      "url": "https://www.montanamma.com/",
+      "use": "The old gym site links here. Current page could not be read during this check. Confirm dated team announcements manually.",
+      "access": "manual",
+      "domains": [
+        "montanamma.com"
+      ]
+    },
+    {
+      "id": "killeagle",
+      "name": "KillEagle Promotions",
+      "category": "Watch list",
+      "area": "Browning and northeast Montana",
+      "url": "https://www.montanasports.com/more-sports/killeagle-promotions-bringing-first-ever-sanctioned-mma-event-to-browning",
+      "use": "Local reporting verifies historical Montana events. A current card still needs a fresh promoter or venue announcement.",
+      "access": "historical",
+      "domains": []
+    },
+    {
+      "id": "medicine",
+      "name": "Big Medicine MMA",
+      "category": "Watch list",
+      "area": "Polson",
+      "url": "https://missoulaunderground.com/mugevent/fusion-fight-league-peterson-vs-trejo-pro-heavy-weight-title-fight-at-um-adams-center/",
+      "use": "Braden Peterson is identified with this gym in the event announcement. A direct official gym feed is still unverified.",
+      "access": "lead",
+      "domains": []
+    },
+    {
+      "id": "fightforce",
+      "name": "FightForce",
+      "category": "Watch list",
+      "area": "Bozeman",
+      "url": "https://www.fightforce.com/shop-1",
+      "use": "The ticket page has an old April 27 listing and no products. Do not treat it as a current independent promotion schedule.",
+      "access": "historical",
+      "domains": []
+    },
+    {
+      "id": "tapology",
+      "name": "Tapology",
+      "category": "Records",
+      "area": "Statewide",
+      "url": "https://www.tapology.com/",
+      "use": "Cross check amateur and professional records, bout level and card changes. Verify important claims with an original source.",
+      "access": "manual",
+      "domains": [
+        "tapology.com"
+      ]
+    },
+    {
+      "id": "sherdog",
+      "name": "Sherdog",
+      "category": "Records",
+      "area": "Statewide",
+      "url": "https://www.sherdog.com/organizations/Fusion-Fight-League-3872",
+      "use": "Supporting bout and result reference. Never the only origin for a new episode.",
+      "access": "manual",
+      "domains": [
+        "sherdog.com"
+      ]
+    }
+  ]
+}
