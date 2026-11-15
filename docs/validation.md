@@ -36,3 +36,10 @@ The writing prompts now start with the fight news and use conversational transit
 Added a recording review using GPT Audio 1.5. It receives the actual MP3 and checks clarity, naturalness, pacing and script fidelity. Export requires a passing review for the exact script and audio bytes. 27 tests pass, including rejection of a weak audio score and a changed recording. Inspected the new studio controls in Chrome.
 
 No paid calls were made for this update. The new voice and audio reviewer have not been validated against the live API. The existing published recording is unchanged. Generation waits for available allowance under the existing $2 daily and $10 monthly limits.
+
+
+## Local fight desk design
+
+Rebuilt the public home page around the featured dispatch, Montana venues and a browsable source desk. Checked the actual desktop front page, venue section and source cards in Chrome. Checked the mobile page and source filters at 390 by 844. Gyms returned two entries, local reporting four, venues four and All restored 17. Reset the temporary viewport after inspection.
+
+The site builds, the listener script passes its syntax check and all 28 tests pass. The existing episode media was retained. No generation request was made during these changes.
